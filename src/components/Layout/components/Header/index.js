@@ -6,7 +6,7 @@ import {
     faGear,
     faKeyboard,
     faSignOut,
-    faUser
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
@@ -18,6 +18,7 @@ import Button from '~/components/Button';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
+import routesConfig from '~/config/routes';
 import Search from '../Search';
 import styles from './Header.module.scss';
 
@@ -98,27 +99,29 @@ export default function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* logo tiktok */}
-                <Link to="/"><img src={images.logo} alt="TikTok" /></Link>
+                <Link to={routesConfig.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="TikTok" />
+                </Link>
 
                 {/* Search area */}
-                <Search/>
+                <Search />
 
                 {/* Action area */}
                 <div className={cx('actions')}>
                     {/* giả sử có user vừa login */}
                     {currentUser ? (
                         <>
-                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                            <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
                                     <UploadIcon />
                                 </button>
                             </Tippy>
-                            <Tippy delay={[0, 200]} content="Message" placement="bottom">
+                            <Tippy delay={[0, 50]} content="Message" placement="bottom">
                                 <button className={cx('action-btn')}>
                                     <MessageIcon />
                                 </button>
                             </Tippy>
-                            <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
+                            <Tippy delay={[0, 50]} content="Inbox" placement="bottom">
                                 <button className={cx('action-btn')}>
                                     <InboxIcon />
                                 </button>
