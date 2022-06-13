@@ -8,6 +8,7 @@ import { SearchIcon } from '~/components/Icons';
 import { wrapper as PopperWrapper } from '~/components/Popper';
 import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
+import * as searchServices from '~/apiServices/searchServices';
 
 const cx = classNames.bind(styles);
 
@@ -17,28 +18,23 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const debounced =useDebounce(searchValue, 500)
+    const debounced = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
 
     useEffect(() => {
         if (!debounced.trim()) {
-            setSearchResult([])
-            return
+            setSearchResult([]);
+            return;
+        }
+
+        const fetchApi = async () => {
+            setLoading(true);
+            const result = await searchServices.search(debounced);
+            setSearchResult(result);
+            setLoading(false);
         };
-
-        setLoading(true);
-
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                // nếu có lỗi
-                setLoading(false);
-            });
+        fetchApi();
     }, [debounced]);
 
     const handleClear = () => {

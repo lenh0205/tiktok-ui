@@ -6,11 +6,12 @@ import {
     faGear,
     faKeyboard,
     faSignOut,
-    faUser,
+    faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css';
 import images from '~/assets/images';
 import Button from '~/components/Button';
@@ -97,7 +98,7 @@ export default function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* logo tiktok */}
-                <img src={images.logo} alt="TikTok" />
+                <Link to="/"><img src={images.logo} alt="TikTok" /></Link>
 
                 {/* Search area */}
                 <Search/>
